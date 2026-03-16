@@ -1,10 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
 export const isSupabaseConfigured = (): boolean => {
-  return supabaseUrl !== '' && supabaseAnonKey !== '';
+  return supabaseUrl.startsWith('http') && supabaseAnonKey.length > 0;
 };
+
+// Only create a real client when configured; otherwise use a placeholder
+// that won't be called (demo mode bypasses all Supabase calls).
+export const supabase: SupabaseClient = isSupabaseConfigured()
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : (null as unknown as SupabaseClient);
