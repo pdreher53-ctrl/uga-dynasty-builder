@@ -16,21 +16,88 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Prevent overscroll bounce on iOS */
-body {
   overscroll-behavior: none;
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #3a3a3a; border-radius: 2px; }
+
+/* ═══════════════════════════════════════════
+   BOOM MASCOT ANIMATIONS
+═══════════════════════════════════════════ */
+
+/* Idle: gentle breathing bob */
+@keyframes boom-idle {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+
+/* Tail wag */
+@keyframes boom-tailwag {
+  0%   { transform: rotate(-22deg); }
+  100% { transform: rotate(22deg); }
 }
-::-webkit-scrollbar-thumb {
-  background: #3a3a3a;
-  border-radius: 2px;
+
+/* Eye blink */
+@keyframes boom-blink {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(0.05); }
 }
+
+/* Tongue wag (happy) */
+@keyframes boom-tongue {
+  0%, 100% { transform: rotate(-8deg) translateX(-2px); }
+  50%      { transform: rotate(8deg) translateX(2px); }
+}
+
+/* Celebrate: big bounce */
+@keyframes boom-celebrate {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  30%      { transform: translateY(-18px) rotate(-4deg); }
+  60%      { transform: translateY(-10px) rotate(4deg); }
+}
+
+/* Sad: slow slump */
+@keyframes boom-sad {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%      { transform: translateY(3px) rotate(-3deg); }
+}
+
+/* Thinking: small sway */
+@keyframes boom-think {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%      { transform: translateY(-3px) rotate(2deg); }
+  66%      { transform: translateY(-1px) rotate(-2deg); }
+}
+
+/* Scoreboard number flip */
+@keyframes score-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.4); color: #FFD700; }
+  100% { transform: scale(1); }
+}
+
+/* Play result flash */
+@keyframes play-flash {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.boom-idle      { animation: boom-idle      3s ease-in-out infinite; }
+.boom-celebrate { animation: boom-celebrate 0.6s ease-in-out infinite; }
+.boom-sad       { animation: boom-sad       2s ease-in-out infinite; }
+.boom-think     { animation: boom-think     2.5s ease-in-out infinite; }
+.boom-happy     { animation: boom-celebrate 0.9s ease-in-out infinite; }
+
+.boom-tail      {
+  transform-origin: 30px 50px;
+  animation: boom-tailwag 0.7s ease-in-out infinite alternate;
+}
+
+.boom-eyes      { animation: boom-blink 4s ease-in-out infinite; }
+.boom-tongue    { animation: boom-tongue 0.9s ease-in-out infinite; }
+
+.score-pop      { animation: score-pop 0.4s ease-out forwards; }
+.play-entry     { animation: play-flash 0.3s ease-out forwards; }

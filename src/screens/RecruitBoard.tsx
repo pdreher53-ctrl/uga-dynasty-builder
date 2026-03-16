@@ -26,7 +26,7 @@ export function RecruitBoard({
     });
 
   return (
-    <div className="px-4 py-4 pb-24 max-w-lg mx-auto">
+    <div className="px-4 py-4 pb-24 lg:pb-6 max-w-lg lg:max-w-4xl mx-auto">
       {/* Filters */}
       <div className="flex gap-2 mb-4 overflow-x-auto">
         <button

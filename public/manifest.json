@@ -1,0 +1,18 @@
+{
+  "name": "UGA Dynasty Builder",
+  "short_name": "Dynasty",
+  "description": "Learn to code through football recruiting",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1A1A",
+  "theme_color": "#BA0C2F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/uga-power-g.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

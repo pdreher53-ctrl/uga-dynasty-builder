@@ -23,7 +23,7 @@ export function FilmRoom({
   };
 
   return (
-    <div className="px-4 py-4 pb-24 max-w-lg mx-auto">
+    <div className="px-4 py-4 pb-24 lg:pb-6 max-w-lg lg:max-w-4xl mx-auto">
       <p className="text-dawg-silver text-sm mb-4">
         Each lesson explains a concept three ways: football, tech, and work.
       </p>

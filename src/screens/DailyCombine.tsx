@@ -51,7 +51,7 @@ export function DailyCombine({
 
   if (allDone) {
     return (
-      <div className="px-4 py-12 pb-24 max-w-lg mx-auto text-center">
+      <div className="px-4 py-12 pb-24 lg:pb-6 max-w-lg lg:max-w-4xl mx-auto text-center">
         <div className="text-6xl mb-4">🎉</div>
         <h2 className="font-display font-extrabold text-2xl text-dawg-white mb-2">
           Combine Complete!
@@ -69,7 +69,7 @@ export function DailyCombine({
   }
 
   return (
-    <div className="px-4 py-4 pb-24 max-w-lg mx-auto">
+    <div className="px-4 py-4 pb-24 lg:pb-6 max-w-lg lg:max-w-4xl mx-auto">
       {/* Progress indicator */}
       <div className="flex gap-2 mb-5">
         {todaysDrills.map((_, i) => (

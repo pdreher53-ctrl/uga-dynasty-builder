@@ -2,6 +2,52 @@
 // TYPE DEFINITIONS — The data blueprints for UGA Dynasty Builder
 // ═══════════════════════════════════════════════════════════════════
 
+// ─── Guided Courses ────────────────────────────────────────────────
+
+export interface CourseQuiz {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+export interface CourseLesson {
+  id: string;
+  moduleId: string;
+  order: number;
+  title: string;
+  duration: string;
+  overview: string;
+  footballAnalogy: string;
+  explanation: string;
+  keyPoints: string[];
+  codeExample?: string;
+  quiz: CourseQuiz;
+  xpReward: number;
+}
+
+export interface CourseModule {
+  id: string;
+  courseId: string;
+  order: number;
+  title: string;
+  description: string;
+  icon: string;
+  lessons: CourseLesson[];
+}
+
+export interface Course {
+  id: string;
+  season: number;
+  seasonLabel: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: string;
+  accentColor: string;
+  modules: CourseModule[];
+}
+
 export interface Recruit {
   id: string;
   name: string;

@@ -81,6 +81,20 @@ export function useProgress(userId: string | undefined) {
     [updateAndSave]
   );
 
+  const completeLesson = useCallback(
+    (lessonId: string, xpReward: number) => {
+      updateAndSave((prev) => {
+        if (prev.unlockedLessonIds.includes(lessonId)) return prev;
+        return {
+          ...prev,
+          totalXp: prev.totalXp + xpReward,
+          unlockedLessonIds: [...prev.unlockedLessonIds, lessonId],
+        };
+      });
+    },
+    [updateAndSave]
+  );
+
   const updateRecruitPipeline = useCallback(
     (recruitId: string, stage: PipelineStage) => {
       updateAndSave((prev) => ({
@@ -113,6 +127,7 @@ export function useProgress(userId: string | undefined) {
     getSkillLevel,
     completeDrill,
     unlockLesson,
+    completeLesson,
     updateRecruitPipeline,
   };
 }

@@ -12,7 +12,7 @@ export function Header({
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-dawg-black/95 backdrop-blur border-b border-dawg-slate">
+    <header className="lg:hidden sticky top-0 z-40 bg-dawg-black/95 backdrop-blur border-b border-dawg-slate">
       <div className="flex items-center justify-between px-4 py-3 max-w-lg mx-auto">
         <div>
           <h1 className="font-display font-bold text-lg text-dawg-white leading-tight">

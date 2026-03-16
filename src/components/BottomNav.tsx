@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const tabs = [
   { path: '/', label: 'HQ', icon: '🏟️' },
-  { path: '/recruits', label: 'Recruits', icon: '📋' },
+  { path: '/game', label: 'Game', icon: '🏈' },
   { path: '/combine', label: 'Combine', icon: '🏋️' },
-  { path: '/filmroom', label: 'Film Room', icon: '🎬' },
+  { path: '/courses', label: 'Courses', icon: '📚' },
 ];
 
 export function BottomNav() {
@@ -13,7 +13,7 @@ export function BottomNav() {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-dawg-charcoal border-t border-dawg-slate safe-area-bottom z-50">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-dawg-charcoal border-t border-dawg-slate safe-area-bottom z-50">
       <div className="flex justify-around items-center max-w-lg mx-auto">
         {tabs.map((tab) => {
           const active =
