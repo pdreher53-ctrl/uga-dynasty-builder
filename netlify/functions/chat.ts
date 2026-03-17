@@ -6,7 +6,7 @@
 // Body: { messages: [{role, content}], levelContext?: {...} }
 // Requires: ANTHROPIC_API_KEY env var set in Netlify dashboard
 
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const SYSTEM_PROMPT = `You are Boom, UGA's bulldog mascot and the AI coding coach for UGA Dynasty Builder Academy.
 
@@ -47,13 +47,13 @@ export const handler = async (event: {
     return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     return {
       statusCode: 503,
       headers,
       body: JSON.stringify({
-        error: 'AI coaching not configured. Add ANTHROPIC_API_KEY to Netlify environment variables.',
+        error: 'AI coaching not configured. Add GEMINI_API_KEY to Netlify environment variables.',
       }),
     };
   }
@@ -77,16 +77,23 @@ export const handler = async (event: {
 The student is currently working on this level. Tailor your help to this specific concept.`;
     }
 
-    const client = new Anthropic({ apiKey });
-    const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 600,
-      system: systemPrompt,
-      messages: messages.slice(-10), // keep last 10 messages for context window
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      systemInstruction: systemPrompt,
     });
 
-    const text =
-      response.content[0]?.type === 'text' ? response.content[0].text : 'Go Dawgs! 🐾';
+    // Gemini uses 'model' instead of 'assistant', and history excludes the last message
+    const recent = messages.slice(-10);
+    const history = recent.slice(0, -1).map((m: { role: string; content: string }) => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }],
+    }));
+    const lastMessage = recent[recent.length - 1]?.content ?? '';
+
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessage(lastMessage);
+    const text = result.response.text() || 'Go Dawgs! 🐾';
 
     return {
       statusCode: 200,
