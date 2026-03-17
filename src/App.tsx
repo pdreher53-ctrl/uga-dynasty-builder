@@ -14,6 +14,14 @@ import { CourseCatalog } from './screens/CourseCatalog';
 import { CourseDetail } from './screens/CourseDetail';
 import { LessonView } from './screens/LessonView';
 import { SeasonSimulator } from './screens/SeasonSimulator';
+import { GamesHub } from './screens/GamesHub';
+import { PickTheWinner } from './screens/PickTheWinner';
+import { WeeklySimulator } from './screens/WeeklySimulator';
+import { CoachOffice } from './screens/CoachOffice';
+import { DynastyDesk } from './screens/DynastyDesk';
+import { AcademyHub } from './screens/AcademyHub';
+import { LevelScreen } from './screens/LevelScreen';
+import { BoomCoach } from './components/BoomCoach';
 
 function AppLayout({
   title,
@@ -45,12 +53,13 @@ function AppLayout({
         </main>
         <BottomNav />
       </div>
+      <BoomCoach />
     </div>
   );
 }
 
 function AppContent() {
-  const { user, loading: authLoading, signIn, signOut, isDemoMode } = useAuth();
+  const { user, loading: authLoading, signIn, signOut, isDemoMode, playWithoutSignIn } = useAuth();
   const {
     loading: progressLoading,
     totalXp,
@@ -77,7 +86,7 @@ function AppContent() {
   }
 
   if (!user) {
-    return <LoginScreen onSignIn={signIn} isDemoMode={isDemoMode} />;
+    return <LoginScreen onSignIn={signIn} onPlayWithoutSignIn={playWithoutSignIn} isDemoMode={isDemoMode} />;
   }
 
   if (progressLoading) {
@@ -172,6 +181,78 @@ function AppContent() {
           <AppLayout title="Season Simulator" {...layoutProps}>
             <SeasonSimulator
               totalXp={totalXp}
+              onEarnXp={(id, xp) => completeLesson(id, xp)}
+            />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/games"
+        element={
+          <AppLayout title="Games Hub" {...layoutProps}>
+            <GamesHub totalXp={totalXp} />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/pick-winner"
+        element={
+          <AppLayout title="Pick the Winner" {...layoutProps}>
+            <PickTheWinner
+              totalXp={totalXp}
+              onEarnXp={(id, xp) => completeLesson(id, xp)}
+            />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/weekly-sim"
+        element={
+          <AppLayout title="Weekly Simulator" {...layoutProps}>
+            <WeeklySimulator
+              onEarnXp={(id, xp) => completeLesson(id, xp)}
+            />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/coach-office"
+        element={
+          <AppLayout title="Coach's Office" {...layoutProps}>
+            <CoachOffice
+              onEarnXp={(id, xp) => completeLesson(id, xp)}
+            />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/dynasty-desk"
+        element={
+          <AppLayout title="Dynasty Desk" {...layoutProps}>
+            <DynastyDesk
+              totalXp={totalXp}
+              onEarnXp={(id, xp) => completeLesson(id, xp)}
+            />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/academy"
+        element={
+          <AppLayout title="AI Builder Academy" {...layoutProps}>
+            <AcademyHub
+              userId={user?.id}
+              onEarnXp={(id, xp) => completeLesson(id, xp)}
+            />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/academy/level/:levelId"
+        element={
+          <AppLayout title="Academy Level" {...layoutProps}>
+            <LevelScreen
+              userId={user?.id}
               onEarnXp={(id, xp) => completeLesson(id, xp)}
             />
           </AppLayout>

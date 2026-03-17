@@ -18,9 +18,6 @@ export function Header({
           <h1 className="font-display font-bold text-lg text-dawg-white leading-tight">
             {title}
           </h1>
-          {isDemoMode && (
-            <span className="text-[10px] text-dawg-gold">DEMO MODE</span>
-          )}
         </div>
         <div className="relative">
           <button

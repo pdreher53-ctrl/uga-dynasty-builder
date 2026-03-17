@@ -4,8 +4,11 @@ import { PowerGLogo } from './PowerGLogo';
 
 const tabs = [
   { path: '/', label: 'Dynasty HQ', icon: '🏟️', description: 'Dashboard & Progress' },
+  { path: '/academy', label: 'Academy', icon: '🎓', description: '30 levels, 3 worlds' },
+  { path: '/dynasty-desk', label: 'Dynasty Desk', icon: '📊', description: 'Stats, charts, trends' },
+  { path: '/games', label: 'Games Hub', icon: '🏈', description: 'All game modes' },
+  { path: '/coach-office', label: "Coach's Office", icon: '🏆', description: 'Weekly decisions' },
   { path: '/courses', label: 'Courses', icon: '📚', description: 'Guided learning path' },
-  { path: '/game', label: 'Season Simulator', icon: '🏈', description: 'Play the season' },
   { path: '/combine', label: 'Daily Combine', icon: '🏋️', description: 'Practice drills' },
   { path: '/recruits', label: 'Recruit Board', icon: '📋', description: 'Manage pipeline' },
 ];
@@ -39,11 +42,6 @@ export function SideNav({
             </div>
           </div>
         </div>
-        {isDemoMode && (
-          <div className="mt-2 text-[10px] text-dawg-gold bg-dawg-gold/10 border border-dawg-gold/20 rounded px-2 py-1 inline-block">
-            DEMO MODE
-          </div>
-        )}
       </div>
 
       {/* XP + Streak stats */}

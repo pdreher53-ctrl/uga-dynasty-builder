@@ -3,9 +3,11 @@ import { PowerGLogo } from '../components/PowerGLogo';
 
 export function LoginScreen({
   onSignIn,
+  onPlayWithoutSignIn,
   isDemoMode,
 }: {
   onSignIn: (email: string) => Promise<{ error: unknown }>;
+  onPlayWithoutSignIn?: () => void;
   isDemoMode: boolean;
 }) {
   const [email, setEmail] = useState('');
@@ -73,13 +75,6 @@ export function LoginScreen({
             </p>
           </div>
 
-          {isDemoMode && (
-            <div className="bg-dawg-gold/10 border border-dawg-gold/30 rounded-lg p-3 mb-6 text-center">
-              <p className="text-dawg-gold text-xs">
-                <strong>Demo Mode</strong> — No Supabase configured. Progress saves locally only.
-              </p>
-            </div>
-          )}
 
           {sent ? (
             <div className="bg-dawg-charcoal rounded-xl p-6 text-center">
@@ -127,7 +122,21 @@ export function LoginScreen({
             </form>
           )}
 
-          <p className="text-dawg-silver/40 text-[10px] text-center mt-8">
+          {onPlayWithoutSignIn && !isDemoMode && (
+            <div className="mt-6 text-center">
+              <button
+                onClick={onPlayWithoutSignIn}
+                className="text-dawg-silver/50 hover:text-dawg-silver text-sm underline underline-offset-2 transition-colors"
+              >
+                Play without signing in (local device only)
+              </button>
+              <p className="text-dawg-silver/30 text-[10px] mt-1">
+                Sign in to sync progress across all your devices
+              </p>
+            </div>
+          )}
+
+          <p className="text-dawg-silver/40 text-[10px] text-center mt-6">
             Built with React + TypeScript + Supabase + Tailwind
           </p>
         </div>

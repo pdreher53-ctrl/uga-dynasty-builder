@@ -170,6 +170,34 @@ export function DynastyHQ({
         </div>
       </div>
 
+      {/* Mini-game grid */}
+      <div className="mb-5">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-display font-bold text-dawg-white">Mini-Games</h3>
+          <button onClick={() => navigate('/games')} className="text-dawg-red text-xs underline">
+            All games
+          </button>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          {[
+            { path: '/pick-winner', icon: '🎯', label: 'Pick the Winner', sub: 'Variables & Conditionals', color: '#22C55E' },
+            { path: '/weekly-sim', icon: '🔄', label: 'Weekly Sim', sub: 'Loops & Functions', color: '#3B82F6' },
+            { path: '/coach-office', icon: '🏆', label: "Coach's Office", sub: 'State Management', color: '#BA0C2F' },
+            { path: '/dynasty-desk', icon: '📊', label: 'Dynasty Desk', sub: 'Data Visualization', color: '#9B59B6' },
+          ].map(item => (
+            <button
+              key={item.path}
+              onClick={() => navigate(item.path)}
+              className="bg-dawg-charcoal hover:bg-dawg-slate/50 rounded-xl p-3 text-left transition-colors border border-dawg-slate/30"
+            >
+              <span className="text-xl">{item.icon}</span>
+              <div className="font-display font-bold text-dawg-white text-xs mt-1.5 leading-tight">{item.label}</div>
+              <div className="text-[9px] mt-0.5" style={{ color: item.color }}>{item.sub}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Recruit board CTA */}
       <button
         onClick={() => navigate('/recruits')}

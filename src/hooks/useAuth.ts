@@ -13,14 +13,13 @@ const DEMO_USER: User = {
 } as User;
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<User | null>(
+    isSupabaseConfigured() ? null : DEMO_USER
+  );
+  const [loading, setLoading] = useState(isSupabaseConfigured());
 
   useEffect(() => {
     if (!isSupabaseConfigured()) {
-      // No Supabase — use demo mode (saves to localStorage only)
-      setUser(DEMO_USER);
-      setLoading(false);
       return;
     }
 
@@ -64,7 +63,12 @@ export function useAuth() {
     setUser(null);
   };
 
-  const isDemoMode = !isSupabaseConfigured();
+  // Let user skip login and play locally (no cross-device sync)
+  const playWithoutSignIn = () => {
+    setUser(DEMO_USER);
+  };
 
-  return { user, loading, signIn, signOut, isDemoMode };
+  const isDemoMode = !isSupabaseConfigured() || user?.id === DEMO_USER.id;
+
+  return { user, loading, signIn, signOut, isDemoMode, playWithoutSignIn };
 }

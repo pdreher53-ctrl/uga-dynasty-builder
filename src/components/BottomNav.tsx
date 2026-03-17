@@ -3,9 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const tabs = [
   { path: '/', label: 'HQ', icon: '🏟️' },
-  { path: '/game', label: 'Game', icon: '🏈' },
-  { path: '/combine', label: 'Combine', icon: '🏋️' },
+  { path: '/academy', label: 'Academy', icon: '🎓' },
+  { path: '/games', label: 'Games', icon: '🏈' },
   { path: '/courses', label: 'Courses', icon: '📚' },
+  { path: '/combine', label: 'Combine', icon: '🏋️' },
 ];
 
 export function BottomNav() {
