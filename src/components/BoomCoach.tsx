@@ -89,8 +89,7 @@ export function BoomCoach({ levelContext }: Props) {
       const data = await res.json();
 
       if (!res.ok || data.error) {
-        // Show a friendly message instead of raw server errors
-        setError('Boom is taking a water break. Try again.');
+        setError(data.error ?? 'Boom is taking a water break. Try again.');
       } else {
         setMessages(prev => [...prev, { role: 'assistant', content: data.content }]);
       }

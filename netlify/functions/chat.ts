@@ -47,13 +47,14 @@ export const handler = async (event: {
     return { statusCode: 405, headers, body: JSON.stringify({ error: 'Method not allowed' }) };
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  // Support common env var names for the Gemini/Google AI API key
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_GEMINI_API_KEY;
   if (!apiKey) {
     return {
       statusCode: 503,
       headers,
       body: JSON.stringify({
-        error: 'AI coaching not configured. Add GEMINI_API_KEY to Netlify environment variables.',
+        error: 'AI coaching not configured. Add GEMINI_API_KEY (or GOOGLE_API_KEY) to Netlify environment variables.',
       }),
     };
   }
@@ -79,7 +80,7 @@ The student is currently working on this level. Tailor your help to this specifi
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash',
       systemInstruction: systemPrompt,
     });
 
