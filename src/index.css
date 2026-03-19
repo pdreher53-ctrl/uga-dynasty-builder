@@ -17,6 +17,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Custom scrollbar */

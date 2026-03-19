@@ -55,7 +55,7 @@ export function LessonView({
   const accentColor = course.accentColor;
 
   return (
-    <div className="pb-24 lg:pb-6 max-w-lg lg:max-w-2xl mx-auto">
+    <div className="pb-24 lg:pb-6 max-w-lg lg:max-w-2xl mx-auto w-full overflow-x-hidden break-words">
       {/* Header bar */}
       <div className="sticky top-0 z-10 bg-dawg-black/95 backdrop-blur border-b border-dawg-slate px-4 py-3 flex items-center gap-3">
         <button
