@@ -6,7 +6,13 @@
   node_bundler = "esbuild"
   directory = "netlify/functions"
 
-# Handle client-side routing — all routes serve index.html
+# Let Netlify Functions handle their own routes (don't rewrite to SPA)
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Handle client-side routing — all other routes serve index.html
 [[redirects]]
   from = "/*"
   to = "/index.html"

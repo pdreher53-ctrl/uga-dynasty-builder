@@ -4,7 +4,7 @@
 //
 // Endpoint: POST /.netlify/functions/chat
 // Body: { messages: [{role, content}], levelContext?: {...} }
-// Requires: ANTHROPIC_API_KEY env var set in Netlify dashboard
+// Requires: GEMINI_API_KEY env var set in Netlify dashboard
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
@@ -50,11 +50,16 @@ export const handler = async (event: {
   // Support common env var names for the Gemini/Google AI API key
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_GEMINI_API_KEY;
   if (!apiKey) {
+    // Log which env vars exist (names only) to help diagnose
+    const envKeys = Object.keys(process.env).filter(k =>
+      k.includes('GEMINI') || k.includes('GOOGLE') || k.includes('API')
+    );
+    console.error('Missing API key. Env vars matching GEMINI/GOOGLE/API:', envKeys);
     return {
       statusCode: 503,
       headers,
       body: JSON.stringify({
-        error: 'AI coaching not configured. Add GEMINI_API_KEY (or GOOGLE_API_KEY) to Netlify environment variables.',
+        error: `API key not found. Checked: GEMINI_API_KEY, GOOGLE_API_KEY, GOOGLE_GEMINI_API_KEY. Found env vars with API/GEMINI/GOOGLE in name: [${envKeys.join(', ')}]. Set one of these in Netlify Site settings > Environment variables.`,
       }),
     };
   }
@@ -101,12 +106,13 @@ The student is currently working on this level. Tailor your help to this specifi
       headers,
       body: JSON.stringify({ content: text }),
     };
-  } catch (err) {
-    console.error('Chat function error:', err);
+  } catch (err: unknown) {
+    const errMsg = err instanceof Error ? err.message : String(err);
+    console.error('Chat function error:', errMsg);
     return {
       statusCode: 500,
       headers,
-      body: JSON.stringify({ error: 'Boom is in the film room. Try again in a moment.' }),
+      body: JSON.stringify({ error: `Gemini API error: ${errMsg}` }),
     };
   }
 };

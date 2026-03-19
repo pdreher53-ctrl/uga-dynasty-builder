@@ -46,7 +46,7 @@ function AppLayout({
         totalXp={totalXp}
         streak={streak}
       />
-      <div className="flex-1 flex flex-col min-h-0 lg:pl-64">
+      <div className="flex-1 flex flex-col min-h-0 min-w-0 lg:pl-64">
         <Header title={title} onSignOut={onSignOut} isDemoMode={isDemoMode} />
         <main className="flex-1 overflow-y-auto overflow-x-hidden">
           {children}
